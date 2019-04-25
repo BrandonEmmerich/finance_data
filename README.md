@@ -1,3 +1,5 @@
-# Yahoo
+# Finance Data
 
-Get and store stock price data from Yahoo Finance.
+Get and store finance data the following sources:
+    - Yahoo
+    - IEX Trading
