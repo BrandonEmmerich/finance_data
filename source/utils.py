@@ -1,5 +1,6 @@
 import datetime
 import psycopg2
+from psycopg2 import extras
 import requests
 import time
 import uuid
@@ -62,3 +63,13 @@ def get_list_from_db(query):
 def get_response_json(url):
     response = requests.get(url)
     return response.json()
+
+def write_many_to_database(list_of_tuples, insert_query):
+    with psycopg2.connect(private.AWS_CONNECTION_STRING) as conn:
+        try:
+            cur = conn.cursor()
+            extras.execute_values(cur, insert_query, list_of_tuples)
+            conn.commit()
+        except Exception as e:
+            conn.rollback()
+            print(e)

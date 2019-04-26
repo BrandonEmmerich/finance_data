@@ -15,6 +15,13 @@ QUERY_INSERT_STOCK_DETAILS = '''
     %(beta)s, %(institution_percent)s, %(price_to_book)s, %(price_to_sales)s)
     '''
 
+QUERY_INSERT_SP_CONSTITUENTS = '''
+    INSERT INTO equity_data.sp_constituents
+    (uuid, run_id, date_added, full_name, sector, symbol)
+    VALUES
+    %s
+    '''
+
 QUERY_GET_TICKERS = '''
 with open_positions as (
 	select
