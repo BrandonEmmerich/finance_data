@@ -40,5 +40,3 @@ if __name__ == '__main__':
             utils.write_to_database(row, settings.QUERY_INSERT_STOCK_DETAILS)
         except Exception as e:
             print(e)
-
-    import ipdb; ipdb.set_trace()
