@@ -1,9 +1,8 @@
-QUERY_INSERT_STOCK_PRICE = '''
+QUERY_INSERT_STOCK_PRICES = '''
     INSERT INTO equity_data.closing_prices
     (uuid, ticker, adjusted_close_price, trading_date)
     VALUES
-    (%(uuid)s, %(ticker)s, %(adjusted_close_price)s, %(trading_date)s)
-    ON CONFLICT DO NOTHING;
+    %s
     '''
 
 QUERY_INSERT_STOCK_DETAILS = '''
@@ -21,6 +20,8 @@ QUERY_INSERT_SP_CONSTITUENTS = '''
     VALUES
     %s
     '''
+
+QUERY_GET_TRADING_DATES = 'select trading_date from equity_data.closing_prices where ticker = \'{}\''
 
 QUERY_GET_TICKERS = '''
 with open_positions as (
@@ -64,3 +65,5 @@ QUERY_GET_TICKERS_FOR_IEX = '''
     	where t.run_id = (select max(run_id) from robinhood.open_positions)
     	) as foo;
     '''
+
+URL_YAHOO_CHART = 'https://query1.finance.yahoo.com/v8/finance/chart/{ticker}L?symbol={ticker}&period1=1280914000&period2={run_id}&interval=1d&includePrePost=true&events=div%7Csplit%7Cearn&lang=en-US&region=US&crumb=YsvQxyK%2Fz6I&corsDomain=finance.yahoo.com'
