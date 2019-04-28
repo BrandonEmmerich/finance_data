@@ -23,34 +23,7 @@ QUERY_INSERT_SP_CONSTITUENTS = '''
 
 QUERY_GET_TRADING_DATES = 'select trading_date from equity_data.closing_prices where ticker = \'{}\''
 
-QUERY_GET_TICKERS = '''
-with open_positions as (
-	select
-		instrument,
-		max(num_open_positions) as num_open_positions
-	from robinhood.open_positions
-	group by 1
-	),
-
-final_data as (
-
-select
-	t.symbol,
-	max(t.full_name) as full_name,
-	max(t.list_date) as list_date,
-	max(t.country) as country,
-	sum(t2.num_open_positions) as num_open_positions
-from robinhood.instrument_details as t
-left join open_positions as t2 on t2.instrument = t.url
-where url in (select instrument from open_positions)
-group by t.symbol
-order by num_open_positions desc
-)
-
-select symbol
-from final_data
-where num_open_positions > 1000;
-'''
+QUERY_GET_TICKERS = '''select symbol from equity_data.sp_constituents'''
 
 QUERY_GET_TICKERS_FOR_IEX = '''
     select symbol
